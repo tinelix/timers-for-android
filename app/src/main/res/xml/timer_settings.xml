@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:layout_width="match_parent"
+        android:title="@string/main_settings_category"
+        app:layout="@layout/pref_category_layout"></android.support.v7.preference.PreferenceCategory>
+    <android.support.v7.preference.Preference
+        android:key="timer_name"
+        android:layout="@layout/pref_item_layout"
+        android:title="@string/timer_name" />
+    <android.support.v7.preference.Preference
+        android:key="timer_action"
+        android:layout="@layout/pref_item_layout"
+        android:title="@string/timer_action_pref" />
+    <android.support.v7.preference.Preference
+        android:key="timerActionDate"
+        android:layout="@layout/pref_item_layout"
+        android:title="@string/start_date" />
+
+</android.support.v7.preference.PreferenceScreen>
