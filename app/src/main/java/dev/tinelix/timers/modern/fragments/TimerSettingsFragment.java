@@ -198,7 +198,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                     } else {
                         isInvalidDate[0] = true;
                     }
-                    
+
                     if(isInvalidDate[0] || isInvalidTime[0]) {
                         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     } else {

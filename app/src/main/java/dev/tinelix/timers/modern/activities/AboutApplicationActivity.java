@@ -22,10 +22,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
         Button repoButton = (Button) findViewById(R.id.repo_button);
         Button websiteButton = (Button) findViewById(R.id.website_button);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         repoButton.setOnClickListener(new View.OnClickListener() {
             @Override
