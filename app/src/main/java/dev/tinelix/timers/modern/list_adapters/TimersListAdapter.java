@@ -117,13 +117,13 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
                     if (remaining_sec > 0) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(timer_date);
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, calendar.get(Calendar.HOUR_OF_DAY) - (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, calendar.get(Calendar.HOUR_OF_DAY), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }
                 } else {
                     if (elapsed_days > 0) {
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, timer_date.getHours() - (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, timer_date.getHours(), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }
