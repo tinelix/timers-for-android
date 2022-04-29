@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
 
 import dev.tinelix.timers.modern.R;
 import dev.tinelix.timers.modern.list_adapters.TimersListAdapter;
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
     public List<String> timersArray = new ArrayList<String>();
     public ArrayList<TimerItem> timersList = new ArrayList<TimerItem>();
+    public Timer timer;
+    public Handler handler;
+    public Runnable updateTimerUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 openEnterDialog("create_timer");
             }
         });
+
+        handler = new Handler();
+        final RecyclerView timersRecyclerView = (RecyclerView) findViewById(R.id.timer_list);
+        updateTimerUI = new Runnable() {
+            @Override
+            public void run() {
+                updateTimersView(timersRecyclerView);
+                handler.postDelayed(this, 1000);
+            }
+        };
 
         appendTimerItems();
     }
@@ -113,8 +128,31 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 timersRecyclerView.getAdapter().notifyDataSetChanged();
             }
+            handler.removeCallbacks(updateTimerUI);
+            handler.post(updateTimerUI);
         } catch(Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        handler.removeCallbacks(updateTimerUI);
+        super.onPause();
+    }
+
+    @Override
+    protected void onPostResume() {
+        handler.post(updateTimerUI);
+        super.onPostResume();
+    }
+
+    private void updateTimersView(RecyclerView recyclerView) {
+        if(recyclerView.getAdapter() == null) {
+            TimersListAdapter timersListAdapter = new TimersListAdapter(MainActivity.this, timersList);
+            recyclerView.setAdapter(timersListAdapter);
+        } else {
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
     }
 

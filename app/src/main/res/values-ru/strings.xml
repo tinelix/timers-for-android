@@ -16,8 +16,8 @@
     <string name="invalid_upcoming_date">Указанная дата должна быть не раньше сегодняшней!</string>
     <string name="invalid_format">Неверный формат даты/времени!</string>
     <string name="time_at">%1$s в %2$s</string>
-    <string name="days_counter_remaining">Осталось %1$d дн.</string>
-    <string name="days_counter_elapsed">Прошло %1$d дн.</string>
+    <string name="days_counter_remaining">Осталось %1$d дн. %2$d ч. %3$d мин. %4$d сек.</string>
+    <string name="days_counter_elapsed">Прошло %1$d дн. %2$d ч. %3$d мин. %4$d сек.</string>
     <string name="days_counter_over">Время закончилось</string>
     <string name="about_application_item">О приложении</string>
     <string name="timer_editor_title">Редактор таймера</string>

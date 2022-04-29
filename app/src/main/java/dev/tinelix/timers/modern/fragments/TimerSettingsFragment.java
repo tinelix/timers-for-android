@@ -141,7 +141,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                                     long elapsed_days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                                     long remaining_days = TimeUnit.DAYS.convert(-diff, TimeUnit.MILLISECONDS);
                                     if(getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "").equals("calculateElapsedTime")) {
-                                        if (elapsed_days > 0) {
+                                        if (elapsed_days >= 0) {
                                             isInvalidDate[0] = false;
                                         } else {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -153,7 +153,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                                             isInvalidDate[0] = true;
                                         }
                                     } else {
-                                        if (remaining_days > 0) {
+                                        if (remaining_days >= 0) {
                                             error_date_text.setVisibility(View.GONE);
                                             isInvalidDate[0] = false;
                                         } else {

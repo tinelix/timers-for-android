@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,5 +41,13 @@ public class AboutApplicationActivity extends AppCompatActivity {
         license_label.setMovementMethod(LinkMovementMethod.getInstance());
         TextView version_label = (TextView) findViewById(R.id.version_label);
         version_label.setText(getResources().getString(R.string.version_str, ((App) getApplicationContext()).version, ((App) getApplicationContext()).build_date));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -79,10 +79,11 @@
 
                 <Button
                     android:id="@+id/repo_button"
-                    android:layout_width="140dp"
-                    android:layout_height="48dp"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="141dp"
+                    android:layout_height="40dp"
                     android:text="@string/repo_button"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/website_button"

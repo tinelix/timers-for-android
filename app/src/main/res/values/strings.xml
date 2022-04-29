@@ -16,8 +16,8 @@
     <string name="invalid_upcoming_date">The specified date must not be earlier than today!</string>
     <string name="invalid_format">Invalid date/time format!</string>
     <string name="time_at">%1$s at %2$s</string>
-    <string name="days_counter_remaining">%1$d days remaining</string>
-    <string name="days_counter_elapsed">%1$d days elapsed</string>
+    <string name="days_counter_remaining">%1$d d. %2$d h. %3$d min. %4$d s. remaining</string>
+    <string name="days_counter_elapsed">%1$d d. %2$d h. %3$d min. %4$d s. elapsed</string>
     <string name="days_counter_over">Time is over</string>
     <string name="about_application_item">About application</string>
     <string name="timer_editor_title">Timer editor</string>

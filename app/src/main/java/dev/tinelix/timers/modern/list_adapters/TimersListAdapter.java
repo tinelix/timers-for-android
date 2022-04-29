@@ -15,6 +15,8 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import dev.tinelix.timers.modern.R;
@@ -76,23 +78,12 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
             TimerItem item = getItem(position);
             item_title.setText(item.name);
             item_subtitle.setText(ctx.getResources().getString(R.string.time_at, new SimpleDateFormat("d MMMM yyyy").format(new Date(item.actionDate)),
-                    new SimpleDateFormat("HH:mm:ss").format(new Date(item.actionDate))));
+                    new SimpleDateFormat("HH:mm").format(new Date(item.actionDate))));
             long diff = (new Date().getTime() - new Date(item.actionDate).getTime());
-            long elapsed_days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            long remaining_days = TimeUnit.DAYS.convert(-diff, TimeUnit.MILLISECONDS);
-            if(item.action.equals("calculateRemainingTime")) {
-                if(remaining_days > 0) {
-                    item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days));
-                } else {
-                    item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
-                }
-            } else {
-                if(elapsed_days > 0) {
-                    item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days));
-                } else {
-                    item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
-                }
-            }
+            long elapsed_sec = TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS);
+            long remaining_sec = TimeUnit.SECONDS.convert(-diff, TimeUnit.MILLISECONDS);
+            updateTimeUI(item, diff, elapsed_sec, remaining_sec);
+
             edit_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -109,6 +100,34 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
                     }
                 }
             });
+        }
+
+        private void updateTimeUI(final TimerItem item, long diff, long elapsed_sec, final long remaining_sec) {
+            try {
+                final long elapsed_days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                final long remaining_days = TimeUnit.DAYS.convert(-diff, TimeUnit.MILLISECONDS);
+                Date timer_date = new Date();
+                if (diff >= 0) {
+                    timer_date = new Date(diff);
+                } else {
+                    timer_date = new Date(-diff);
+                }
+                if (item.action.equals("calculateRemainingTime")) {
+                    if (remaining_sec > 0) {
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, timer_date.getHours(), timer_date.getMinutes(), timer_date.getSeconds()));
+                    } else {
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
+                    }
+                } else {
+                    if (elapsed_days > 0) {
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, timer_date.getHours(), timer_date.getMinutes(), timer_date.getSeconds()));
+                    } else {
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
