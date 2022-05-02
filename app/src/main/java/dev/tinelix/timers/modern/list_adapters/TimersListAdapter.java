@@ -109,21 +109,23 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
                 final long remaining_days = TimeUnit.DAYS.convert(-diff, TimeUnit.MILLISECONDS);
                 Date timer_date = new Date();
                 if (diff >= 0) {
-                    timer_date = new Date(diff + 61200000);
+                    timer_date = new Date(diff);
                 } else {
-                    timer_date = new Date(-diff + 61200000);
+                    timer_date = new Date(-diff);
                 }
                 if (item.action.equals("calculateRemainingTime")) {
                     if (remaining_sec > 0) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(timer_date);
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, calendar.get(Calendar.HOUR_OF_DAY), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, calendar.get(Calendar.HOUR_OF_DAY) + (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }
                 } else {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(timer_date);
                     if (elapsed_days > 0) {
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, timer_date.getHours(), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, calendar.get(Calendar.HOUR_OF_DAY) + (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }
