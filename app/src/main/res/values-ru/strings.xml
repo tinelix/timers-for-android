@@ -24,4 +24,5 @@
     <string name="version_str">Версия %1$s (%2$s)</string>
     <string name="license_info">Это свободное программное обеспечение с открытым исходным кодом, распространяемое в соответствии с условиями <a href="https://www.gnu.org/licenses/gpl-3.0.ru.html">GNU General Public License 3.0 (прочитать лицензию)</a>.\n\n<b>БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ВКЛЮЧАЯ КОММЕРЧЕСКУЮ ЦЕННОСТЬ.</b></string>
     <string name="repo_button">Репозиторий</string>
+    <string name="delete_timer_question">Удалить таймер?</string>
 </resources>

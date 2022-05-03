@@ -54,13 +54,13 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
             timer_action.setOnPreferenceClickListener(new android.support.v7.preference.Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(android.support.v7.preference.Preference preference) {
-                    String current_value = getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "");
+                    final String current_value = getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "");
                     openChoiceDialog("set_timer_action", timer_actions, current_value);
                     return false;
                 }
             });
             final android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
-            if(getActivity().getSharedPreferences(old_timer_name, 0).getString("countAction", "").contains("calculateRemainingTime")) {
+            if(getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "").contains("calculateRemainingTime")) {
                 timerActionDate.setTitle(getResources().getString(R.string.end_date));
                 timer_action.setSummary(timer_actions[0]);
             } else {

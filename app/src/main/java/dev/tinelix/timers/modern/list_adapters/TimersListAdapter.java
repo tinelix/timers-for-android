@@ -107,6 +107,8 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
             try {
                 final long elapsed_days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                 final long remaining_days = TimeUnit.DAYS.convert(-diff, TimeUnit.MILLISECONDS);
+                final long elapsed_hours = TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS);
+                final long remaining_hours = TimeUnit.HOURS.convert(-diff, TimeUnit.MILLISECONDS);
                 Date timer_date = new Date();
                 if (diff >= 0) {
                     timer_date = new Date(diff);
@@ -117,7 +119,7 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
                     if (remaining_sec > 0) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(timer_date);
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, calendar.get(Calendar.HOUR_OF_DAY) + (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_remaining, remaining_days, (int) ((remaining_hours % 24)), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }
@@ -125,7 +127,7 @@ public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Ho
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(timer_date);
                     if (elapsed_days > 0) {
-                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, calendar.get(Calendar.HOUR_OF_DAY) + (new Date().getTimezoneOffset() / 60), timer_date.getMinutes(), timer_date.getSeconds()));
+                        item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_elapsed, elapsed_days, (int) ((elapsed_hours % 24)), timer_date.getMinutes(), timer_date.getSeconds()));
                     } else {
                         item_time_counter.setText(ctx.getResources().getString(R.string.days_counter_over));
                     }

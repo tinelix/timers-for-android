@@ -9,8 +9,8 @@ android {
         minSdkVersion 9
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 25
-        versionCode 1
-        versionName '0.0.3-alpha-20220429'
+        versionCode 5
+        versionName '0.0.4-alpha-20220503'
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

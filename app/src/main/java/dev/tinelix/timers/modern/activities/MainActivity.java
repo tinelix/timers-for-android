@@ -227,14 +227,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteTimer(int position) {
-        TimerItem timerItem = timersList.get(position);
-        try {
-            String profile_path = "/data/data/" + getPackageName() + "/shared_prefs/" + timerItem.name + ".xml";
-            File file = new File(profile_path);
-            file.delete();
-            appendTimerItems();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        final TimerItem timerItem = timersList.get(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage(R.string.delete_timer_question);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                try {
+                    String profile_path = "/data/data/" + getPackageName() + "/shared_prefs/" + timerItem.name + ".xml";
+                    File file = new File(profile_path);
+                    file.delete();
+                    appendTimerItems();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
