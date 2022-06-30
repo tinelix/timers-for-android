@@ -25,4 +25,13 @@
     <string name="license_info">Это свободное программное обеспечение с открытым исходным кодом, распространяемое в соответствии с условиями <a href="https://www.gnu.org/licenses/gpl-3.0.ru.html">GNU General Public License 3.0 (прочитать лицензию)</a>.\n\n<b>БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ВКЛЮЧАЯ КОММЕРЧЕСКУЮ ЦЕННОСТЬ.</b></string>
     <string name="repo_button">Репозиторий</string>
     <string name="delete_timer_question">Удалить таймер?</string>
+    <string name="templates">Шаблоны</string>
+    <!-- Templates names !-->
+    <string name="new_year">Новый год</string>
+    <string name="beginning_of_winter">Начало зимы</string>
+    <string name="beginning_of_spring">Начало весны</string>
+    <string name="beginning_of_summer">Начало лета</string>
+    <string name="beginning_of_autumn">Начало осени</string>
+    <string name="beginning_of_year">Начало года</string>
+    <!--                 !-->
 </resources>

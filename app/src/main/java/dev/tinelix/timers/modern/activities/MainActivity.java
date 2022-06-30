@@ -11,9 +11,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,15 +24,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 
 import dev.tinelix.timers.modern.R;
+import dev.tinelix.timers.modern.list_adapters.TemplateListAdapter;
 import dev.tinelix.timers.modern.list_adapters.TimersListAdapter;
+import dev.tinelix.timers.modern.list_items.TemplateItem;
 import dev.tinelix.timers.modern.list_items.TimerItem;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public Timer timer;
     public Handler handler;
     public Runnable updateTimerUI;
+    public AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +170,23 @@ public class MainActivity extends AppCompatActivity {
         if (action.equals("create_timer")) {
             LayoutInflater inflater = getLayoutInflater();
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            final View view = inflater.inflate(R.layout.enter_text_layout, null);
+            final View view = inflater.inflate(R.layout.enter_timer_time_layout, null);
             builder.setView(view);
             final EditText value_edit = view.findViewById(R.id.enter_value);
             final TextView error_text = view.findViewById(R.id.error_text);
+            ArrayList<TemplateItem> templateItems = new ArrayList<>();
+            templateItems.add(new TemplateItem("newYear", getResources().getString(R.string.new_year)));
+            templateItems.add(new TemplateItem("BoW", getResources().getString(R.string.beginning_of_winter)));
+            templateItems.add(new TemplateItem("BoSp", getResources().getString(R.string.beginning_of_spring)));
+            templateItems.add(new TemplateItem("BoSu", getResources().getString(R.string.beginning_of_summer)));
+            templateItems.add(new TemplateItem("BoA", getResources().getString(R.string.beginning_of_autumn)));
+            templateItems.add(new TemplateItem("BoY", getResources().getString(R.string.beginning_of_year)));
+            TemplateListAdapter templateListAdapter = new TemplateListAdapter(MainActivity.this, templateItems);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            RecyclerView templates = view.findViewById(R.id.templates_rv);
+            templates.setLayoutManager(layoutManager);
+            templates.setAdapter(templateListAdapter);
             builder.setPositiveButton(getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -177,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("timerName", value_edit.getText().toString());
                     intent.putExtra("packageName", getApplicationContext().getPackageName());
                     startActivity(intent);
+
                 }
             });
             builder.setNegativeButton(getResources().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
@@ -185,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-            final AlertDialog alertDialog = builder.create();
+            alertDialog = builder.create();
             value_edit.setHint(getResources().getString(R.string.name));
             value_edit.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -215,6 +239,142 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+        }
+    }
+
+    public void createTimerFromTemplate(String name) {
+        try {
+            if(name.equals("newYear")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.new_year), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                editor.putString("timerAction", "calculateRemainingTime");
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date newYearDate = simpleDateFormat.parse(String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR) + 1));
+                editor.putLong("timerActionDate", newYearDate.getTime());
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            } else if(name.equals("BoW")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.beginning_of_winter), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                Date BoWDate = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
+                if((new Date().getTime() - BoWDate.getTime()) <= 7776000 && (new Date().getTime() - BoWDate.getTime()) >= 0) {
+                    editor.putString("timerAction", "calculateElapsedTime");
+                    BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoWDate.getTime());
+                } else {
+                    editor.putString("timerAction", "calculateRemainingTime");
+                    BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoWDate.getTime());
+                }
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            } else if(name.equals("BoSp")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.beginning_of_spring), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                Date BoSpDate = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                if((new Date().getTime() - BoSpDate.getTime()) >= 0) {
+                    editor.putString("timerAction", "calculateElapsedTime");
+                    BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoSpDate.getTime());
+                } else {
+                    editor.putString("timerAction", "calculateRemainingTime");
+                    BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoSpDate.getTime());
+                }
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            } else if(name.equals("BoSu")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.beginning_of_summer), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                Date BoSuDate = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                BoSuDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                if((new Date().getTime() - BoSuDate.getTime()) >= 0) {
+                    editor.putString("timerAction", "calculateElapsedTime");
+                    BoSuDate = simpleDateFormat.parse(String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoSuDate.getTime());
+                } else {
+                    editor.putString("timerAction", "calculateRemainingTime");
+                    BoSuDate = simpleDateFormat.parse(String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoSuDate.getTime());
+                }
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            } else if(name.equals("BoA")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.beginning_of_autumn), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                Date BoADate = new Date();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                BoADate = simpleDateFormat.parse(String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
+                if((new Date().getTime() - BoADate.getTime()) >= 0) {
+                    editor.putString("timerAction", "calculateElapsedTime");
+                    BoADate = simpleDateFormat.parse(String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoADate.getTime());
+                } else {
+                    editor.putString("timerAction", "calculateRemainingTime");
+                    BoADate = simpleDateFormat.parse(String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    editor.putLong("timerActionDate", BoADate.getTime());
+                }
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            } if(name.equals("BoY")) {
+                SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.beginning_of_year), 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putLong("createdDate", System.currentTimeMillis());
+                editor.putString("timerAction", "calculateElapsedTime");
+                Date currentDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(currentDate);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date BoYDate = simpleDateFormat.parse(String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR)));
+                editor.putLong("timerActionDate", BoYDate.getTime());
+                editor.commit();
+                onResume();
+                if(alertDialog != null) {
+                    alertDialog.cancel();
+                }
+            }
+        } catch (Exception ex) {
+
         }
     }
 

@@ -26,4 +26,13 @@
     <string name="repo_button">Repository</string>
     <string name="copyright_str" translatable="false">Copyright © 2022 Dmitry Tretyakov (aka. Tinelix)</string>
     <string name="delete_timer_question">Delete timer?</string>
+    <string name="templates">Templates</string>
+    <!-- Templates names !-->
+    <string name="new_year">New year</string>
+    <string name="beginning_of_winter">Beginning of winter</string>
+    <string name="beginning_of_spring">Beginning of spring</string>
+    <string name="beginning_of_summer">Beginning of summer</string>
+    <string name="beginning_of_autumn">Beginning of autumn</string>
+    <string name="beginning_of_year">Beginning of year</string>
+    <!--                 !-->
 </resources>

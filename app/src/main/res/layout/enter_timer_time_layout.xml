@@ -22,6 +22,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="12dp"
+            android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="@string/value"
             android:inputType="textPersonName"
@@ -39,6 +40,28 @@
             android:text="Error text"
             android:textColor="@color/holo_red_light"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/templates"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/templates_rv"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp" />
 
     </LinearLayout>
 
