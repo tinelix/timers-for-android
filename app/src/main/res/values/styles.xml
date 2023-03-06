@@ -1,14 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,11 +17,19 @@
 
     <style name="AppTheme.TemplateButtons" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="textAppearanceButton">@style/TextAppearance.NoLetterSpacing</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.NoLetterSpacing">
     </style>
 
     <style name="AppTheme.Preference" parent="PreferenceThemeOverlay">
         <item name="android:layout">@layout/settings_layout</item>
+    </style>
+
+    <style name="TextAppearance">
+
     </style>
 
 

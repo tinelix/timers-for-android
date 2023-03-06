@@ -1,9 +1,7 @@
-package dev.tinelix.timers.modern.list_adapters;
+package dev.tinelix.timers.modern.list.adapters;
 
-import android.app.LauncherActivity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +9,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import dev.tinelix.timers.modern.R;
-import dev.tinelix.timers.modern.activities.MainActivity;
-import dev.tinelix.timers.modern.list_items.TimerItem;
+import dev.tinelix.timers.modern.core.ui.activities.MainActivity;
+import dev.tinelix.timers.modern.list.items.TimerItem;
 
 public class TimersListAdapter extends RecyclerView.Adapter<TimersListAdapter.Holder> {
 

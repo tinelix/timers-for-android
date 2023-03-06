@@ -1,13 +1,11 @@
-package dev.tinelix.timers.modern.fragments;
+package dev.tinelix.timers.modern.core.ui.fragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceFragmentCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,7 +19,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import dev.tinelix.timers.modern.R;
-import dev.tinelix.timers.modern.activities.TimerSettingsActivity;
+import dev.tinelix.timers.modern.core.ui.activities.TimerSettingsActivity;
 
 public class TimerSettingsFragment extends PreferenceFragmentCompat {
     public String old_timer_name;
@@ -41,25 +39,25 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
         old_timer_name = ((TimerSettingsActivity) getActivity()).getTimerName();
         addPreferencesFromResource(R.xml.timer_settings);
         if(old_timer_name != null) {
-            android.support.v7.preference.Preference timer_name = findPreference("timer_name");
-            timer_name.setOnPreferenceClickListener(new android.support.v7.preference.Preference.OnPreferenceClickListener() {
+            androidx.preference.Preference timer_name = findPreference("timer_name");
+            timer_name.setOnPreferenceClickListener(new androidx.preference.Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(android.support.v7.preference.Preference preference) {
+                public boolean onPreferenceClick(androidx.preference.Preference preference) {
                     openEnterDialog("set_timer_name");
                     return false;
                 }
             });
             timer_name.setSummary(old_timer_name);
-            android.support.v7.preference.Preference timer_action = findPreference("timer_action");
-            timer_action.setOnPreferenceClickListener(new android.support.v7.preference.Preference.OnPreferenceClickListener() {
+            androidx.preference.Preference timer_action = findPreference("timer_action");
+            timer_action.setOnPreferenceClickListener(new androidx.preference.Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(android.support.v7.preference.Preference preference) {
+                public boolean onPreferenceClick(androidx.preference.Preference preference) {
                     final String current_value = getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "");
                     openChoiceDialog("set_timer_action", timer_actions, current_value);
                     return false;
                 }
             });
-            final android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
+            final androidx.preference.Preference timerActionDate = findPreference("timerActionDate");
             if(getActivity().getSharedPreferences(old_timer_name, 0).getString("timerAction", "").contains("calculateRemainingTime")) {
                 timerActionDate.setTitle(getResources().getString(R.string.end_date));
                 timer_action.setSummary(timer_actions[0]);
@@ -67,9 +65,9 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                 timerActionDate.setTitle(getResources().getString(R.string.start_date));
                 timer_action.setSummary(timer_actions[1]);
             }
-            timerActionDate.setOnPreferenceClickListener(new android.support.v7.preference.Preference.OnPreferenceClickListener() {
+            timerActionDate.setOnPreferenceClickListener(new androidx.preference.Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(android.support.v7.preference.Preference preference) {
+                public boolean onPreferenceClick(androidx.preference.Preference preference) {
                     createDateTimePickerDialog("set_action_date");
                     return false;
                 }
@@ -81,7 +79,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
 
     private void createDateTimePickerDialog(String action) {
         if(action.equals("set_action_date")) {
-            final android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
+            final androidx.preference.Preference timerActionDate = findPreference("timerActionDate");
             LayoutInflater inflater = getLayoutInflater();
             final boolean[] isInvalidDate = new boolean[1];
             final boolean[] isInvalidTime = new boolean[1];
@@ -283,7 +281,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(timer_name, 0).edit();
             editor.putLong("timerActionDate", date_sec);
             editor.commit();
-            final android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
+            final androidx.preference.Preference timerActionDate = findPreference("timerActionDate");
             timerActionDate.setSummary(new SimpleDateFormat("d MMMM yyyy HH:mm:ss").format(date));
         }
     }
@@ -305,7 +303,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                                     value = "calculateElapsedTime";
                                 }
                                 onChangingValues(old_timer_name, "timerAction", value);
-                                android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
+                                androidx.preference.Preference timerActionDate = findPreference("timerActionDate");
                                 timerActionDate.setTitle(getResources().getString(R.string.end_date));
                             }
                         });
@@ -321,7 +319,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                                     value = "calculateElapsedTime";
                                 }
                                 onChangingValues(old_timer_name, "timerAction", value);
-                                android.support.v7.preference.Preference timerActionDate = findPreference("timerActionDate");
+                                androidx.preference.Preference timerActionDate = findPreference("timerActionDate");
                                 timerActionDate.setTitle(getResources().getString(R.string.start_date));
                             }
                         });
@@ -346,11 +344,11 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
             if(param.equals("timerAction")) {
                 if(value.equals("calculateRemainingTime")) {
                     final String[] timer_actions = getResources().getStringArray(R.array.timer_actions);
-                    final android.support.v7.preference.Preference timer_action = findPreference("timer_action");
+                    final androidx.preference.Preference timer_action = findPreference("timer_action");
                     timer_action.setSummary(timer_actions[0]);
                 } else {
                     final String[] timer_actions = getResources().getStringArray(R.array.timer_actions);
-                    final android.support.v7.preference.Preference timer_action = findPreference("timer_action");
+                    final androidx.preference.Preference timer_action = findPreference("timer_action");
                     timer_action.setSummary(timer_actions[1]);
                 }
             }
@@ -374,7 +372,7 @@ public class TimerSettingsFragment extends PreferenceFragmentCompat {
                     File file = new File(profile_path);
                     file.delete();
                     old_timer_name = value_edit.getText().toString();
-                    android.support.v7.preference.Preference timer_name = findPreference("timer_name");
+                    androidx.preference.Preference timer_name = findPreference("timer_name");
                     timer_name.setSummary(value_edit.getText().toString());
                     SharedPreferences prefs = getActivity().getSharedPreferences(value_edit.getText().toString(), 0);
                     SharedPreferences.Editor editor = prefs.edit();

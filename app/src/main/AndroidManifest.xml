@@ -11,8 +11,9 @@
         android:theme="@style/AppTheme"
         android:name=".App">
         <activity
-            android:name=".activities.MainActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mcc|mnc|uiMode">
+            android:name=".core.ui.activities.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mcc|mnc|uiMode"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.TimerSettingsActivity"
+            android:name=".core.ui.activities.TimerSettingsActivity"
             android:label="@string/timer_editor_title"
+            android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mcc|mnc|uiMode">
         </activity>
         <activity
-            android:name=".activities.AboutApplicationActivity"
+            android:name=".core.ui.activities.AboutApplicationActivity"
             android:label="@string/about_application_item"
+            android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mcc|mnc|uiMode">
         </activity>
     </application>

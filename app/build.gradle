@@ -1,18 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "32.0.0"
 
     defaultConfig {
         applicationId "dev.tinelix.timers.modern"
-        minSdkVersion 9
-        //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 25
-        versionCode 6
-        versionName '0.0.6-alpha-20220630'
+        minSdkVersion 19
+        targetSdkVersion 33
+        versionCode 7
+        versionName '0.1.0-alpha-20230306'
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -28,16 +27,16 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:25.4.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
     //noinspection GradleCompatible
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     //noinspection GradleCompatible
-    implementation 'com.android.support:recyclerview-v7:25.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     //noinspection GradleCompatible
-    implementation 'com.android.support:design:25.0.0'
+    implementation 'com.google.android.material:material:1.8.0'
     //noinspection GradleCompatible
-    implementation 'com.android.support:preference-v7:25.0.0'
+    implementation 'androidx.preference:preference:1.2.0'
 }

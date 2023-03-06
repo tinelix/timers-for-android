@@ -1,13 +1,11 @@
-package dev.tinelix.timers.modern.activities;
+package dev.tinelix.timers.modern.core.ui.activities;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import java.io.File;
-
 import dev.tinelix.timers.modern.R;
-import dev.tinelix.timers.modern.fragments.TimerSettingsFragment;
+import dev.tinelix.timers.modern.core.ui.fragments.TimerSettingsFragment;
 
 public class TimerSettingsActivity extends AppCompatActivity {
     public String old_timer_name;

@@ -5,18 +5,18 @@
     <androidx.preference.PreferenceCategory
         android:layout_width="match_parent"
         android:title="@string/main_settings_category"
-        app:layout="@layout/pref_category_layout" />
+        app:iconSpaceReserved="false" />
     <androidx.preference.Preference
         android:key="timer_name"
-        android:layout="@layout/pref_item_layout"
-        android:title="@string/timer_name" />
+        android:title="@string/timer_name"
+        app:iconSpaceReserved="false" />
     <androidx.preference.Preference
         android:key="timer_action"
-        android:layout="@layout/pref_item_layout"
-        android:title="@string/timer_action_pref" />
+        android:title="@string/timer_action_pref"
+        app:iconSpaceReserved="false" />
     <androidx.preference.Preference
         android:key="timerActionDate"
-        android:layout="@layout/pref_item_layout"
-        android:title="@string/start_date" />
+        android:title="@string/start_date"
+        app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>

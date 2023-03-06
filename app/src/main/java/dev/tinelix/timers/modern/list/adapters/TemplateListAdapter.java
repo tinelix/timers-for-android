@@ -1,7 +1,7 @@
-package dev.tinelix.timers.modern.list_adapters;
+package dev.tinelix.timers.modern.list.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +10,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import dev.tinelix.timers.modern.R;
-import dev.tinelix.timers.modern.activities.MainActivity;
-import dev.tinelix.timers.modern.list_items.TemplateItem;
+import dev.tinelix.timers.modern.core.ui.activities.MainActivity;
+import dev.tinelix.timers.modern.list.items.TemplateItem;
 
 public class TemplateListAdapter extends RecyclerView.Adapter<TemplateListAdapter.Holder>{
 

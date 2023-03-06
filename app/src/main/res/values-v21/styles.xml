@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.NoLetterSpacing">
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+</resources>

@@ -1,4 +1,4 @@
-package dev.tinelix.timers.modern.list_items;
+package dev.tinelix.timers.modern.list.items;
 
 public class TimerItem {
     public String name;
