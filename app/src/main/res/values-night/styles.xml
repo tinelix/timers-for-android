@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog.Alert</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Alert" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:colorBackground">#222222</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AppTheme.Dialog.Button</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="rippleColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.TemplateButtons" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="textAppearanceButton">@style/TextAppearance.NoLetterSpacing</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.NoLetterSpacing">
+    </style>
+
+    <style name="AppTheme.Preference" parent="PreferenceThemeOverlay">
+        <item name="android:layout">@layout/settings_layout</item>
+    </style>
+
+    <style name="TextAppearance">
+
+    </style>
+
+
+</resources>

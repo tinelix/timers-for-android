@@ -19,7 +19,7 @@
                 android:id="@+id/icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/item_icon_background_gradient_orange"
+                android:background="@drawable/item_icon_background_gradient_blue"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_material_timer_white_128dp" />
 

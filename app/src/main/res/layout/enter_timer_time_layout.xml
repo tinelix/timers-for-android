@@ -54,9 +54,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/templates"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/templates" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/templates_rv"

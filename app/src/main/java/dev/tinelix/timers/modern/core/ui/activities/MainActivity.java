@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
         timersArray.clear();
         timersList.clear();
         String package_name = getApplicationContext().getPackageName();
-        @SuppressLint("SdCardPath") String profile_path = String.format("/data/data/%s/shared_prefs", package_name);
+        @SuppressLint("SdCardPath") String profile_path =
+                String.format("/data/data/%s/shared_prefs", package_name);
         File prefs_directory = new File(profile_path);
         File[] prefs_files = prefs_directory.listFiles();
         RecyclerView timersRecyclerView = (RecyclerView) findViewById(R.id.timer_list);
@@ -115,14 +116,20 @@ public class MainActivity extends AppCompatActivity {
         try {
             assert prefs_files != null;
             for (File prefs_file : prefs_files) {
-                if (prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)).startsWith(getApplicationInfo().packageName + "_preferences")) {
+                if (prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4))
+                        .startsWith(getApplicationInfo().packageName + "_preferences")) {
 
                 } else {
-                    SharedPreferences prefs = MainActivity.this.getSharedPreferences(prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)), 0);
+                    SharedPreferences prefs = MainActivity.this.
+                            getSharedPreferences
+                                    (prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)), 0);
                     file_extension = prefs_file.getName().substring((int) (prefs_file.getName().length() - 4));
                     if (file_extension.contains(".xml") && file_extension.length() == 4) {
-                        timersList.add(new TimerItem(prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)),
-                                prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)), prefs.getString("timerAction", ""), prefs.getLong("timerActionDate", 0), "timer"));
+                        timersList.add(new TimerItem(prefs_file.getName().substring(0, (int)
+                                (prefs_file.getName().length() - 4)),
+                                prefs_file.getName().substring(0, (int) (prefs_file.getName().length() - 4)),
+                                prefs.getString("timerAction", ""),
+                                prefs.getLong("timerActionDate", 0), "timer"));
                     }
                 }
             }
@@ -133,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 timersRecyclerView.setVisibility(View.VISIBLE);
                 timersLinearLayout.setVisibility(View.GONE);
             }
-            TimersListAdapter timersListAdapter = new TimersListAdapter(MainActivity.this, timersList);
+            TimersListAdapter timersListAdapter = new TimersListAdapter(MainActivity.this,
+                    timersList);
             timersRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
             if(timersRecyclerView.getAdapter() == null) {
                 timersRecyclerView.setAdapter(timersListAdapter);
@@ -195,7 +203,8 @@ public class MainActivity extends AppCompatActivity {
             templateItems.add(new TemplateItem("BoSu", getResources().getString(R.string.beginning_of_summer)));
             templateItems.add(new TemplateItem("BoA", getResources().getString(R.string.beginning_of_autumn)));
             templateItems.add(new TemplateItem("BoY", getResources().getString(R.string.beginning_of_year)));
-            TemplateListAdapter templateListAdapter = new TemplateListAdapter(MainActivity.this, templateItems);
+            TemplateListAdapter templateListAdapter = new TemplateListAdapter(
+                    MainActivity.this, templateItems);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             RecyclerView templates = view.findViewById(R.id.templates_rv);
@@ -214,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("timerName", value_edit.getText().toString());
                     intent.putExtra("packageName", getApplicationContext().getPackageName());
                     startActivity(intent);
-
                 }
             });
             builder.setNegativeButton(getResources().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
@@ -263,8 +271,12 @@ public class MainActivity extends AppCompatActivity {
                     Date currentDate = new Date();
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    @SuppressLint("DefaultLocale") Date newYearDate = simpleDateFormat.parse(String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR) + 1));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    @SuppressLint("DefaultLocale") Date newYearDate =
+                            simpleDateFormat.parse(
+                                    String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR) + 1)
+                            );
                     assert newYearDate != null;
                     editor.putLong("timerActionDate", newYearDate.getTime());
                     editor.apply();
@@ -282,15 +294,19 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
                     Date BoWDate = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    BoWDate = simpleDateFormat.parse(
+                            String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
                     assert BoWDate != null;
-                    if ((new Date().getTime() - BoWDate.getTime()) <= 7776000 && (new Date().getTime() - BoWDate.getTime()) >= 0) {
+                    if ((new Date().getTime() - BoWDate.getTime()) <= 7776000 &&
+                            (new Date().getTime() - BoWDate.getTime()) >= 0) {
                         editor.putString("timerAction", "calculateElapsedTime");
                     } else {
                         editor.putString("timerAction", "calculateRemainingTime");
                     }
-                    BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    BoWDate = simpleDateFormat.parse(String.format("%d-12-01 00:00:00",
+                            calendar.get(Calendar.YEAR)));
                     assert BoWDate != null;
                     editor.putLong("timerActionDate", BoWDate.getTime());
                     editor.apply();
@@ -308,17 +324,27 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
                     Date BoSpDate = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    BoSpDate =
+                            simpleDateFormat.parse(
+                                    String.format("%d-03-01 00:00:00",
+                                    calendar.get(Calendar.YEAR)));
                     assert BoSpDate != null;
                     if ((new Date().getTime() - BoSpDate.getTime()) >= 0) {
                         editor.putString("timerAction", "calculateElapsedTime");
-                        BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                        BoSpDate =
+                                simpleDateFormat.parse(
+                                        String.format("%d-03-01 00:00:00",
+                                        calendar.get(Calendar.YEAR)));
                         assert BoSpDate != null;
                         editor.putLong("timerActionDate", BoSpDate.getTime());
                     } else {
                         editor.putString("timerAction", "calculateRemainingTime");
-                        BoSpDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                        BoSpDate = simpleDateFormat.parse(
+                                String.format("%d-03-01 00:00:00",
+                                        calendar.get(Calendar.YEAR))
+                        );
                         assert BoSpDate != null;
                         editor.putLong("timerActionDate", BoSpDate.getTime());
                     }
@@ -337,17 +363,21 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
                     Date BoSuDate = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    BoSuDate = simpleDateFormat.parse(String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    BoSuDate = simpleDateFormat.parse(
+                            String.format("%d-03-01 00:00:00", calendar.get(Calendar.YEAR)));
                     assert BoSuDate != null;
                     if ((new Date().getTime() - BoSuDate.getTime()) >= 0) {
                         editor.putString("timerAction", "calculateElapsedTime");
-                        BoSuDate = simpleDateFormat.parse(String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
+                        BoSuDate = simpleDateFormat.parse(
+                                String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
                         assert BoSuDate != null;
                         editor.putLong("timerActionDate", BoSuDate.getTime());
                     } else {
                         editor.putString("timerAction", "calculateRemainingTime");
-                        BoSuDate = simpleDateFormat.parse(String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
+                        BoSuDate = simpleDateFormat.parse(
+                                String.format("%d-06-01 00:00:00", calendar.get(Calendar.YEAR)));
                         editor.putLong("timerActionDate", BoSuDate.getTime());
                     }
                     editor.apply();
@@ -365,15 +395,18 @@ public class MainActivity extends AppCompatActivity {
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
                     Date BoADate = new Date();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    BoADate = simpleDateFormat.parse(String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    BoADate = simpleDateFormat.parse(
+                            String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
                     assert BoADate != null;
                     if ((new Date().getTime() - BoADate.getTime()) >= 0) {
                         editor.putString("timerAction", "calculateElapsedTime");
                     } else {
                         editor.putString("timerAction", "calculateRemainingTime");
                     }
-                    BoADate = simpleDateFormat.parse(String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    BoADate = simpleDateFormat.parse(
+                            String.format("%d-09-01 00:00:00", calendar.get(Calendar.YEAR)));
                     assert BoADate != null;
                     editor.putLong("timerActionDate", BoADate.getTime());
                     editor.apply();
@@ -391,8 +424,10 @@ public class MainActivity extends AppCompatActivity {
                     Date currentDate = new Date();
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(currentDate);
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date BoYDate = simpleDateFormat.parse(String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date BoYDate = simpleDateFormat.parse(
+                            String.format("%d-01-01 00:00:00", calendar.get(Calendar.YEAR)));
                     assert BoYDate != null;
                     editor.putLong("timerActionDate", BoYDate.getTime());
                     editor.apply();
@@ -425,7 +460,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 try {
-                    @SuppressLint("SdCardPath") String profile_path = String.format("/data/data/%s/shared_prefs/%s.xml", getPackageName(), timerItem.name);
+                    @SuppressLint("SdCardPath") String profile_path =
+                            String.format("/data/data/%s/shared_prefs/%s.xml", getPackageName(), timerItem.name);
                     File file = new File(profile_path);
                     file.delete();
                     appendTimerItems();
